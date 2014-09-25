@@ -80,6 +80,7 @@ public class RequestCreator {
 
   private boolean skipMemoryCache;
   private boolean noFade;
+  private boolean noPlaceholder;
   private boolean deferred;
   private int placeholderResId;
   private int errorResId;
@@ -295,6 +296,11 @@ public class RequestCreator {
   /** Disable brief fade in of images loaded from the disk cache or network. */
   public RequestCreator noFade() {
     noFade = true;
+    return this;
+  }
+
+  public RequestCreator noPlaceholder() {
+    noPlaceholder = true;
     return this;
   }
 
@@ -528,7 +534,7 @@ public class RequestCreator {
 
     if (!data.hasImage()) {
       picasso.cancelRequest(target);
-      setPlaceholder(target, placeholderResId, placeholderDrawable);
+      if (!noPlaceholder) setPlaceholder(target, placeholderResId, placeholderDrawable);
       return;
     }
 
@@ -539,7 +545,7 @@ public class RequestCreator {
       int width = target.getWidth();
       int height = target.getHeight();
       if (width == 0 || height == 0) {
-        setPlaceholder(target, placeholderResId, placeholderDrawable);
+        if (!noPlaceholder) setPlaceholder(target, placeholderResId, placeholderDrawable);
         picasso.defer(target, new DeferredRequestCreator(this, target, callback));
         return;
       }
@@ -564,7 +570,7 @@ public class RequestCreator {
       }
     }
 
-    setPlaceholder(target, placeholderResId, placeholderDrawable);
+    if (!noPlaceholder) setPlaceholder(target, placeholderResId, placeholderDrawable);
 
     Action action =
         new ImageViewAction(picasso, target, request, skipMemoryCache, noFade, errorResId,

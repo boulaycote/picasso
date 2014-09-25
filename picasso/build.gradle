@@ -1,0 +1,15 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.1.0'
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:19.1.+'
+
+    compile 'com.squareup.okhttp:okhttp:+'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:+'
+
+    compile 'org.jetbrains:annotations:13.0'
+}

@@ -22,7 +22,7 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
 abstract class Action<T> {
-  static class RequestWeakReference<T> extends WeakReference<T> {
+  static class RequestWeakReference<T> extends java.lang.ref.WeakReference<T> {
     final Action action;
 
     public RequestWeakReference(Action action, T referent, ReferenceQueue<? super T> q) {
